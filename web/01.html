@@ -1,0 +1,41 @@
+﻿<!Doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>1st_GCC_2016 </title>
+		<link rel="stylesheet" href="style.css">
+
+	</head>
+	<body>
+		<header>
+			<h1>
+				<a href="/">
+					<img src="./logo.png" min-width="64" height="64" alt="구름에듀">
+				</a>
+			</h1>
+			<a href=".." class="header_title_link">
+				<h2>GCC 웹 서비스 문제 - Javascript로 DOM 제어하기</h2>
+			</a>
+    	</header>
+		<section>
+			<span id="left">변경되지 않은 DOM</span> 		<span id="right" style="background-color: skyblue;color: white;text-align: right;width: 200px;display: inline-block;">변경 완료 된 DOM</span><br /><br /><br />
+
+			<button class="btn btn-default" onclick="foo();">
+				버튼
+			</button>
+			<script>
+				var foo = function() {
+					/*
+					 * 여기에 함수를 구현하세요
+					 */
+					var element = document.getElementById("left");
+					element.style.backgroundColor = "skyblue";
+					element.style.color = "white";
+					element.style.textAlign = "right";
+					element.style.width = "200px";
+					element.style.display = "inline-block";
+				}
+			</script>
+		</section>
+	</body>
+</html>

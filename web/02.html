@@ -1,0 +1,107 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>1st_GCC_2016 </title>
+		<link rel="stylesheet" href="style.css">
+
+	</head>
+	<body>
+		<header>
+			<h1>
+				<a href="#">
+					<img src="./logo.png" min-width="64" height="64" alt="구름에듀">
+				</a>
+			</h1>
+			<a href="#" class="header_title_link">
+				<h2>GCC 웹 서비스 문제 - XmlHttpRequest 객체로 ajax 함수 구현하기</h2>
+			</a>
+    	</header>
+		<section>
+			<div class="well" id="response_msg">
+				서버 응답 메시지
+			</div>
+			<button class="btn btn-default" onclick="do_get();">
+				GET 요청
+			</button>
+			<button class="btn btn-default" onclick="do_post();">
+				POST 요청
+			</button>
+
+			<script>
+				var do_get = function() {
+					$.get('./echo_get.php', {
+						msg: 'Send Chunk of data'
+					}, function(response) {
+						if (typeof response === 'object') {
+							response = JSON.stringify(response, null, 2);
+						}
+						document.getElementById('response_msg').innerHTML = response;
+						setTimeout(function() {
+							document.getElementById('response_msg').innerHTML = '서버 응답 메시지';
+						}, 2500);
+					});
+				};
+
+				var do_post = function() {
+					$.post('./echo_post.php', {
+						msg: 'Send Chunk of data'
+					}, function(response) {
+						if (typeof response === 'object') {
+							response = JSON.stringify(response, null, 2);
+						}
+						document.getElementById('response_msg').innerHTML = response;
+						setTimeout(function() {
+							document.getElementById('response_msg').innerHTML = '서버 응답 메시지';
+						}, 2500);
+					})
+				};
+
+				var serialize = function(obj) {
+  				var str = [];
+  				for(var p in obj){
+    				if (obj.hasOwnProperty(p)) {
+      				str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    				}
+          }
+  				return str.join("&");
+				};
+
+				var $ = {
+					get: function(url, params, callback) {
+						/*
+						 * 여기에 함수를 구현해 주세요.
+						 */
+					var req = new XMLHttpRequest();
+					req.open('GET', url+'?'+serialize(params), true);
+					req.onreadystatechange = function (aEvt) {
+  					if (req.readyState == 4) {
+     					if(req.status == 200)
+      					console.log(req.responseText);
+							  callback(req.responseText);
+  						}
+						};
+					req.send();
+					},
+
+					post: function(url, params, callback) {
+						/*
+						 * 여기에 함수를 구현해 주세요.
+						 */
+					var req = new XMLHttpRequest();
+					req.open('POST', url, true);
+					req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					req.onreadystatechange = function (aEvt) {
+  					if (req.readyState == 4) {
+     					if(req.status == 200)
+      					console.log(req.responseText);
+							  callback(req.responseText);
+  						}
+						};
+					req.send(serialize(params));
+					}
+				}
+			</script>
+		</section>
+	</body>
+</html>
